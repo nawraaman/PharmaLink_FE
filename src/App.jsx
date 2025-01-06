@@ -1,7 +1,16 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import NavBar from './components/NavBar'
+import Home from './pages/Home'
+import Signin from './pages/auth/Signin'
+import Signup from './pages/auth/Signup'
 
-const App = () => {
-  return <h1>Hello world!</h1>
+const logOut = () => {
+  localStorage.removeItem('authToken')
+  setUser(null)
 }
+useEffect(() => {
+  getUserProfile()
+}, [])
 
 export default App
