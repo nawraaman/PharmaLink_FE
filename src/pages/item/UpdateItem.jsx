@@ -1,37 +1,38 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL } from 'globals'
 
-const ItemForm = ({ item, setItem }) => {
-  let navigate = useNavigate()
-  let initialState = {
-    name: '',
-    price: '',
-    quantity: '',
-    expireDate: '',
-    description: '',
-    category: '',
-    image: ''
-  }
+const updateItem = ({ items, setItems }) => {
+  let navigate = useNavigate
+  const { id } = useParams
 
-  const [formValues, setFormValues] = useState(initialState)
+  const [formValues, setFormValues] = useState(null)
 
   const handleSubmit = async (event) => {
-    event.prevent.Default()
-    const response = await axios.post(`${BASE_URL}/item`, formValues)
-    setItem([...item, response.data])
-    setFormValues(initialState)
-    navigate('/itemList')
+    event.preventDefault()
+    const response = await axios.put(`${BASE_URL}/item/${id}`, formValues)
+    let index = items.findIndex((item) => item._id === id)
+    setItems(items.toSpliced(index, 1, response.data))
+    navigate(`/itemList/${id}`)
   }
-
   const handleChange = (event) => {
     setFormValues({ ...formValues, [event.target.id]: event.target.value })
   }
 
-  return (
+  useEffect(() => {
+    const getItem = () => {
+      const singleItem = items.find((item) => {
+        return item._id === id
+      })
+      setFormValues(singleItem)
+    }
+    getItem()
+  }, [])
+
+  return formValues ? (
     <div>
-      <h1>New Item</h1>
+      <h1>Update Details for {formValues.name}</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name: </label>
         <input
@@ -86,10 +87,12 @@ const ItemForm = ({ item, setItem }) => {
           onChange={handleChange}
           value={formValues.image}
         />
-        <button type="submit">Submit</button>
       </form>
+      <button onClick={() => navigate(`/itemList/${id}`)}>Back</button>
     </div>
+  ) : (
+    <h1>Loading . . . </h1>
   )
 }
 
-export default ItemForm
+export default updateItem
