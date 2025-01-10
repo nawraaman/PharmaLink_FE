@@ -31,7 +31,7 @@ const ItemForm = ({ item, setItem }) => {
 
   return (
     <div>
-      <h1>New Item</h1>
+      <h1>Add New Item</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name: </label>
         <input
@@ -86,7 +86,7 @@ const ItemForm = ({ item, setItem }) => {
           onChange={handleChange}
           value={formValues.image}
         />
-        <button type="submit">Submit</button>
+        <button type="submit">Add</button>
       </form>
     </div>
   )

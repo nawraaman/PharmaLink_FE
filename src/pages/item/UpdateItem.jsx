@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL } from 'globals'
 
-const updateItem = ({ items, setItems }) => {
+const UpdateItem = ({ items, setItems }) => {
   let navigate = useNavigate
   const { id } = useParams
 
@@ -95,4 +95,4 @@ const updateItem = ({ items, setItems }) => {
   )
 }
 
-export default updateItem
+export default UpdateItem
