@@ -50,6 +50,7 @@ const App = () => {
 
   return (
     <>
+      <NavBar />
       <header>
         <Nav logOut={logOut} user={user} />
       </header>
@@ -77,8 +78,8 @@ const App = () => {
             path="/pharmacy/delete/:pharmacyId"
             element={
               <DeletePharmacy
-                pharmacies={pharmacies}
-                setPharmacies={setPharmacies}
+                pharmacies={pharmacy}
+                setPharmacies={setPharmacy}
               />
             }
           />
@@ -86,11 +87,8 @@ const App = () => {
             path="/"
             element={<ItemForm items={items} setItems={setItems} />}
           />
-          <Route path="/itemList" element={<ItemList items={items} />} />
-          <Route
-            path="/itemList/:ItemId"
-            element={<ItemDetails items={items} />}
-          />
+          <Route path="/item" element={<ItemList items={items} />} />
+          <Route path="/item/:ItemId" element={<ItemDetails items={items} />} />
           <Route
             path="/update/:ItemId"
             element={<UpdateItem item={items} setItems={setItems} />}
