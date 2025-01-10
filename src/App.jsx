@@ -1,18 +1,25 @@
 import { Route, Routes } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
+import { BASE_URL } from './globals'
+import axios from 'axios'
 import Nav from './components/NavBar'
 import Home from './pages/Home'
+import ApprovalRequests from './pages/ApprovalRequests'
 import Signin from './pages/auth/Signin'
 import Signup from './pages/auth/Signup'
 import { useEffect, useState } from 'react'
 import { getProfile } from './services/userService'
-import Dashboard from './pages/Dashboard'
+import client from './services/config'
+// import { getAllRequests } from './services/userService'
 
 const App = () => {
   const [user, setUser] = useState(null)
+
   const getUserProfile = async () => {
     try {
       const data = await getProfile()
+      console.log(data)
       setUser(data)
     } catch (error) {
       setUser(null)
@@ -24,8 +31,19 @@ const App = () => {
     setUser(null)
   }
 
+  // useEffect(() => {
+  //   getUserProfile()
+  // }, [])
+
+  // Pharmacies
+  const [pharmacies, setPharmacies] = useState([])
+
   useEffect(() => {
-    getUserProfile()
+    const getAllPharmacies = async () => {
+      const response = await axios.get(`${BASE_URL}/pharmacy`)
+      setPharmacies(response.data)
+    }
+    getAllPharmacies()
   }, [])
 
   return (
@@ -44,8 +62,11 @@ const App = () => {
             path="/auth/signin"
             element={<Signin getUserProfile={getUserProfile} />}
           />
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard user={user} />} />
+          <Route
+            path="/"
+            element={<Home user={user} pharmacies={pharmacies} />}
+          />
+          <Route path="/admin/requests" element={<ApprovalRequests />} />
         </Routes>
       </main>
     </>

@@ -23,19 +23,21 @@ const Signin = ({ getUserProfile }) => {
       await signIn(formData)
       await getUserProfile()
       setFormData(initialFormData)
-      navigate('/dashboard')
+      navigate('/')
     } catch (error) {
       setMessage(error.response?.data?.error)
     }
   }
 
   return (
-    <main>
-      <h1>Log In</h1>
-      <p style={{ color: 'red' }}>{message}</p>
+    <main className="container mt-5">
+      <h1 className="text-center mb-4">Sign In</h1>
+      {message && <p className="text-danger text-center">{message}</p>}
       <form autoComplete="off" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
+        <div className="mb-3">
+          <label htmlFor="username" className="form-label">
+            Username:
+          </label>
           <input
             type="text"
             autoComplete="off"
@@ -43,10 +45,13 @@ const Signin = ({ getUserProfile }) => {
             value={formData.username}
             name="username"
             onChange={handleChange}
+            className="form-control"
           />
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Password:
+          </label>
           <input
             type="password"
             autoComplete="off"
@@ -54,14 +59,21 @@ const Signin = ({ getUserProfile }) => {
             value={formData.password}
             name="password"
             onChange={handleChange}
+            className="form-control"
           />
         </div>
-        <section>
-          <button>Log In</button>
-          <Link to="/">
-            <button>Cancel</button>
+        <div className="d-flex justify-content-between">
+          <button
+            type="submit"
+            className="btn"
+            style={{ backgroundColor: '#800000', color: '#fff' }}
+          >
+            Sign In
+          </button>
+          <Link to="/" className="btn btn-secondary">
+            Cancel
           </Link>
-        </section>
+        </div>
       </form>
     </main>
   )
