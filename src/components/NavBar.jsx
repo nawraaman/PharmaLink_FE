@@ -16,6 +16,20 @@ const NavBar = ({ logOut, user }) => {
               </Link>
             </li>
             <p>Welcome, {user.username}</p>
+            <Link
+              to="/itemList"
+              className={({ isActive }) => (isActive ? 'active' : undefined)}
+            >
+              {' '}
+              View All Items{' '}
+            </Link>
+
+            <NavLink
+              to="/new"
+              className={({ isActive }) => (isActive ? 'active' : undefined)}
+            >
+              Add Item
+            </NavLink>
           </>
         ) : (
           <>

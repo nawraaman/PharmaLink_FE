@@ -32,7 +32,7 @@ const App = () => {
       <main>
         <Routes>
           <Route
-            path="/"
+            path="/new"
             element={<ItemForm items={items} setItems={setItems} />}
           />
           <Route path="/itemList" element={<ItemList items={items} />} />
