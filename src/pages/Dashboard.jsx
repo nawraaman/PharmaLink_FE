@@ -5,10 +5,10 @@ const Dashboard = ({ user }) => {
 
   return (
     <>
-      <h1>Welcome, {user.username}</h1>
+      <h1>Welcome, {user?.username}</h1>
       <p>
         This is the dashboard page where you, and only you, can see a dashboard
-        of all pharmacies.
+        of all of your things.
       </p>
     </>
   )

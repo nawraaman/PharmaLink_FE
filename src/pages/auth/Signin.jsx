@@ -7,7 +7,7 @@ const initialFormData = {
   password: ''
 }
 
-const Signin = ({ getUser }) => {
+const Signin = ({ getUserProfile }) => {
   const [message, setMessage] = useState('')
   const [formData, setFormData] = useState(initialFormData)
   const navigate = useNavigate()
@@ -21,7 +21,7 @@ const Signin = ({ getUser }) => {
     e.preventDefault()
     try {
       await signIn(formData)
-      await getUser()
+      await getUserProfile()
       setFormData(initialFormData)
       navigate('/dashboard')
     } catch (error) {
@@ -35,7 +35,7 @@ const Signin = ({ getUser }) => {
       <p style={{ color: 'red' }}>{message}</p>
       <form autoComplete="off" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">Username:</label>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
             autoComplete="off"
