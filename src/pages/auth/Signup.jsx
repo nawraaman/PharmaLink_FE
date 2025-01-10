@@ -1,14 +1,13 @@
-import { signUp } from '../../services/authService'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { signUp } from '../../services/authService'
 
 const initialFormData = {
   username: '',
   password: '',
   passwordConf: ''
 }
-
-const Signup = ({ getUser }) => {
+const Signup = ({ getUserProfile }) => {
   const [message, setMessage] = useState('')
   const [formData, setFormData] = useState(initialFormData)
   const navigate = useNavigate()
@@ -21,9 +20,9 @@ const Signup = ({ getUser }) => {
     e.preventDefault()
     try {
       await signUp(formData)
-      await getUser()
+      await getUserProfile()
       setFormData(initialFormData)
-      navigate('/')
+      navigate('/dashboard')
     } catch (error) {
       setMessage(error.response?.data?.error)
       console.log(error)
@@ -73,6 +72,7 @@ const Signup = ({ getUser }) => {
             onChange={handleChange}
           />
         </div>
+
         <section>
           <button disabled={isFormInvalid()}>Sign Up</button>
           <Link to="/">

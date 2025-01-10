@@ -12,27 +12,78 @@ import DeleteConfirm from './pages/item/DeleteConfirm'
 import ItemDetails from './pages/item/ItemDetails'
 import ItemList from './pages/item/ItemList'
 
+import { getProfile } from './services/userService'
+import Dashboard from './pages/Dashboard'
+import PharmacyDetails from './pages/Pharmacy/PharmacyDetails'
+import AddPharmacy from './pages/Pharmacy/AddPharmacy'
+import UpdatePharmacy from './pages/Pharmacy/UpdatePharmacy'
+import DeletePharmacy from './pages/Pharmacy/DeletePharmacy'
+import Home from './pages/Home'
+
 const App = () => {
   const [items, setItems] = useState([])
+  const [user, setUser] = useState(null)
+  const [pharmacy, setPharmacy] = useState([])
+  const getUserProfile = async () => {
+    try {
+      const data = await getProfile()
+      setUser(data)
+    } catch (error) {
+      setUser(null)
+      console.log(error)
+    }
+  }
+
+  const logOut = () => {
+    localStorage.removeItem('authToken')
+    setUser(null)
+  }
 
   useEffect(() => {
     const getAllItems = async () => {
       const response = await axios.get(`${BASE_URL}` / items)
       setItems(response.data)
     }
-
+    getUserProfile()
     getAllItems()
   }, [])
 
   return (
     <>
       <header>
-        <NavBar />
+        <Nav logOut={logOut} user={user} />
       </header>
       <main>
         <Routes>
           <Route
+            path="/auth/signin"
+            element={<Signin getUserProfile={getUserProfile} />}
+          />
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard user={user} />} />
+          <Route
+            path="/pharmacy/:pharmacyId"
+            element={<PharmacyDetails setPharmacy={setPharmacy} />}
+          />
+          <Route
             path="/new"
+            element={<AddPharmacy setPharmacy={setPharmacy} />}
+          />
+          <Route
+            path="/pharmacy/update/:pharmacyId"
+            element={<UpdatePharmacy setPharmacy={setPharmacy} />}
+          />
+          <Route
+            path="/pharmacy/delete/:pharmacyId"
+            element={
+              <DeletePharmacy
+                pharmacies={pharmacies}
+                setPharmacies={setPharmacies}
+              />
+            }
+          />
+          <Route
+            path="/"
             element={<ItemForm items={items} setItems={setItems} />}
           />
           <Route path="/itemList" element={<ItemList items={items} />} />
