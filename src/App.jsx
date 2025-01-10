@@ -9,6 +9,8 @@ import { getProfile } from './services/userService'
 import Dashboard from './pages/Dashboard'
 import PharmacyDetails from './pages/Pharmacy/PharmacyDetails'
 import AddPharmacy from './pages/Pharmacy/AddPharmacy'
+import UpdatePharmacy from './pages/Pharmacy/UpdatePharmacy'
+import DeletePharmacy from './pages/Pharmacy/DeletePharmacy'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -56,6 +58,19 @@ const App = () => {
           <Route
             path="/new"
             element={<AddPharmacy setPharmacy={setPharmacy} />}
+          />
+          <Route
+            path="/pharmacy/update/:pharmacyId"
+            element={<UpdatePharmacy setPharmacy={setPharmacy} />}
+          />
+          <Route
+            path="/pharmacy/delete/:pharmacyId"
+            element={
+              <DeletePharmacy
+                pharmacies={pharmacies}
+                setPharmacies={setPharmacies}
+              />
+            }
           />
         </Routes>
       </main>
