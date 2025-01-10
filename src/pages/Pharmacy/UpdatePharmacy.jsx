@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
-import { BASE_URL } from '../globals'
+import { BASE_URL } from 'globals'
 
 const UpdatePharmacy = ({ pharmacies, setPharmacies }) => {
   let navigate = useNavigate()
