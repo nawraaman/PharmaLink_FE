@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL } from '../../globals'
+
 const AddPharmacy = ({ pharmacy, setPharmacy }) => {
   const initialState = {
     name: '',
@@ -56,14 +57,10 @@ const AddPharmacy = ({ pharmacy, setPharmacy }) => {
           value={formPharm.noBranches}
           required
         />
-        <label htmlFor="logo">Logo:</label>
-        <input
-          type="text"
-          id="logo"
-          onChange={handleChange}
-          value={formPharm.logo}
-        />
-        <button type="submit">Submit</button>
+        <label htmlFor="logo">Upload Logo:</label>
+        <input type="file" name="logo" id="logo" accept="image/*" required />
+
+        <button type="submit">Create Pharmacy</button>
       </form>
     </div>
   )
