@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { BASE_URL } from '../../globals'
 import client from '../../services/config'
+import { BASE_URL } from '../../globals'
 
 const DeletePharmacy = ({ pharmacies, setPharmacies }) => {
   let navigate = useNavigate()
@@ -10,7 +10,7 @@ const DeletePharmacy = ({ pharmacies, setPharmacies }) => {
   const deletePharmacy = async () => {
     try {
       // await axios.delete(`${BASE_URL}/pharmacy/${pharmacyId}`)
-      const response = await client.delete(`/pharmacy/${pharmacyId}`)
+      const response = await client.delete(`pharmacy/${pharmacyId}`)
       const index = pharmacies.findIndex(
         (pharmacy) => pharmacy._id === pharmacyId
       )

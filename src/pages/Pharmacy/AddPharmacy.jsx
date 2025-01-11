@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import client from '../../services/config'
 import axios from 'axios'
 import { BASE_URL } from '../../globals'
+import client from '../../services/config'
 
 const AddPharmacy = ({ pharmacies, setPharmacies }) => {
   const initialState = {
@@ -17,6 +17,7 @@ const AddPharmacy = ({ pharmacies, setPharmacies }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
+      // const response = await axios.post(`${BASE_URL}/pharmacy`, formPharm)
       const response = await client.post('/pharmacy', formPharm)
       setPharmacies([...pharmacies, response.data])
       setFormPharm(initialState)
@@ -90,11 +91,7 @@ const AddPharmacy = ({ pharmacies, setPharmacies }) => {
             required
           />
         </div>
-        <button
-          type="submit"
-          className="btn btn-primary w-100"
-          style={{ backgroundColor: '#800000', color: 'white' }}
-        >
+        <button type="submit" className="btn btn-primary w-100">
           Create Pharmacy
         </button>
       </form>

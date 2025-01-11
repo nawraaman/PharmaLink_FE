@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
+
 import { BASE_URL } from '../../globals'
-import client from '../../services/config'
 
 const UpdatePharmacy = ({ pharmacies, setPharmacies }) => {
   let navigate = useNavigate()
@@ -13,17 +13,15 @@ const UpdatePharmacy = ({ pharmacies, setPharmacies }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      // const response = await axios.put(
-      //   `${BASE_URL}/pharmacy/${pharmacyId}`,
-      //   formPharmacy
-      // )
-      const response = await client.put(`/pharmacy/${pharmacyId}`, formPharmacy)
+      const response = await axios.put(
+        `${BASE_URL}/pharmacy/${pharmacyId}`,
+        formPharmacy
+      )
       const index = pharmacies.findIndex(
         (pharmacy) => pharmacy._id === pharmacyId
       )
       setPharmacies(pharmacies.toSpliced(index, 1, response.data))
-      // navigate(`/pharmacy/${pharmacyId}`)
-      navigate('/')
+      navigate(`/pharmacy/${pharmacyId}`)
     } catch (error) {
       console.error('Error updating pharmacy:', error)
     }
