@@ -40,7 +40,7 @@ const PharmacyDetails = ({ user }) => {
             <div className="col-md-5">
               {pharmacy.logo ? (
                 <img
-                  src={pharmacy.logo}
+                  src={`${BASE_URL}${pharmacy.logo}`} // Concatenate BASE_URL with the logo path
                   alt={pharmacy.name}
                   className="img-fluid w-100 h-100"
                   style={{
