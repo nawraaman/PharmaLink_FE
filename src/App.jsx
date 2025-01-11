@@ -14,6 +14,7 @@ import PharmacyDetails from './pages/Pharmacy/PharmacyDetails'
 import AddPharmacy from './pages/Pharmacy/AddPharmacy'
 import UpdatePharmacy from './pages/Pharmacy/UpdatePharmacy'
 import DeletePharmacy from './pages/Pharmacy/DeletePharmacy'
+import AddItem from './pages/Item/AddItem'
 import client from './services/config'
 
 const App = () => {
@@ -49,6 +50,9 @@ const App = () => {
     getAllPharmacies()
   }, [])
 
+  //Items
+  const [items, setItems] = useState([])
+
   return (
     <>
       <header>
@@ -83,21 +87,8 @@ const App = () => {
                 setPharmacies={setPharmacies}
               />
             }
-
-            //incoming
-            //   path="/new"
-            //   element={
-            //     <AddPharmacy pharmacy={pharmacy} setPharmacy={setPharmacy} />
-            //   }
-            // />
-            // <Route
-            //   path="/pharmacy/update/:pharmacyId"
-            //   element={<UpdatePharmacy setPharmacy={setPharmacy} />}
-            // />
-            // <Route
-            //   path="/pharmacy/delete/:pharmacyId"
-            //   element={<DeletePharmacy setPharmacy={setPharmacy} />}
           />
+
           <Route
             path="/pharmacy/update/:pharmacyId"
             element={
@@ -107,6 +98,7 @@ const App = () => {
               />
             }
           />
+
           <Route
             path="/pharmacy/delete/:pharmacyId"
             element={
@@ -115,6 +107,11 @@ const App = () => {
                 setPharmacies={setPharmacies}
               />
             }
+          />
+
+          <Route
+            path="/item/new/:pharmacyId"
+            element={<AddItem items={items} setItems={setItems} />}
           />
         </Routes>
       </main>

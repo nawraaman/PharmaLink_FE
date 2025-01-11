@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
+import { BASE_URL } from '../globals'
+
 const Pharmacy = ({ pharmacy }) => {
   // const src = `../../../PharmaLink_BE/public/uploads/logos/${pharmacy.logo}`
   return (
     <div className="col-md-4 mb-4">
       <div className="card" style={{ width: '18rem' }}>
         <img
-          src={pharmacy.logo}
+          src={`${BASE_URL}${pharmacy.logo}`}
           alt={pharmacy.name}
           className="card-img-top"
           style={{
