@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import axios from 'axios'
-
-import { BASE_URL } from '../../globals'
-
+import client from '../../services/config'
 
 const UpdatePharmacy = ({ pharmacies, setPharmacies }) => {
   let navigate = useNavigate()
@@ -14,10 +11,7 @@ const UpdatePharmacy = ({ pharmacies, setPharmacies }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const response = await axios.put(
-        `${BASE_URL}/pharmacy/${pharmacyId}`,
-        formPharmacy
-      )
+      const response = await client.put(`pharmacy/${pharmacyId}`, formPharmacy)
       const index = pharmacies.findIndex(
         (pharmacy) => pharmacy._id === pharmacyId
       )
@@ -43,47 +37,66 @@ const UpdatePharmacy = ({ pharmacies, setPharmacies }) => {
   }, [pharmacyId, pharmacies])
 
   return formPharmacy ? (
-    <div>
-      <h1>Update Details for {formPharmacy.name}</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          onChange={handleChange}
-          value={formPharmacy.name}
-        />
-
-        <label htmlFor="location">Location:</label>
-        <input
-          type="text"
-          id="location"
-          onChange={handleChange}
-          value={formPharmacy.location}
-        />
-
-        <label htmlFor="noBranches">Number of Branches:</label>
-        <input
-          type="number"
-          id="noBranches"
-          onChange={handleChange}
-          value={formPharmacy.noBranches}
-        />
-
-        <label htmlFor="logo">Logo:</label>
-        <input
-          type="text"
-          id="logo"
-          onChange={handleChange}
-          value={formPharmacy.logo}
-        />
-
-        <button type="submit">Update Pharmacy</button>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">
+        Update Details for {formPharmacy.name}
+      </h1>
+      <form
+        onSubmit={handleSubmit}
+        className="shadow p-4 bg-light rounded mx-auto"
+        style={{ maxWidth: '500px' }}
+      >
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            className="form-control"
+            onChange={handleChange}
+            value={formPharmacy.name}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="location" className="form-label">
+            Location
+          </label>
+          <input
+            type="text"
+            id="location"
+            className="form-control"
+            onChange={handleChange}
+            value={formPharmacy.location}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="noBranches" className="form-label">
+            Number of Branches
+          </label>
+          <input
+            type="number"
+            id="noBranches"
+            className="form-control"
+            onChange={handleChange}
+            value={formPharmacy.noBranches}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary w-100">
+          Update Pharmacy
+        </button>
       </form>
-      <button onClick={() => navigate(`/pharmacy/${pharmacyId}`)}>Back</button>
+      <div className="text-center mt-3">
+        <button
+          className="btn btn-secondary btn-sm"
+          onClick={() => navigate(`/pharmacy/${pharmacyId}`)}
+        >
+          Back
+        </button>
+      </div>
     </div>
   ) : (
-    <h1>Loading . . .</h1>
+    <h1 className="text-center mt-5">Loading . . .</h1>
   )
 }
 
