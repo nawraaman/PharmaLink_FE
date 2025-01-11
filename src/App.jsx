@@ -51,9 +51,7 @@ const App = () => {
   return (
     <>
       <NavBar />
-      <header>
-        <Nav logOut={logOut} user={user} />
-      </header>
+      <header>{/* <Nav logOut={logOut} user={user} /> */}</header>
       <main>
         <Routes>
           <Route
@@ -84,7 +82,7 @@ const App = () => {
             }
           />
           <Route
-            path="/"
+            path="/newItem"
             element={<ItemForm items={items} setItems={setItems} />}
           />
           <Route path="/item" element={<ItemList items={items} />} />

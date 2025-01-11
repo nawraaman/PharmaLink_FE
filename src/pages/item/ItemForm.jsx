@@ -19,6 +19,7 @@ const ItemForm = ({ item, setItem }) => {
 
   const handleSubmit = async (event) => {
     event.prevent.Default()
+
     const response = await axios.post(`${BASE_URL}/item`, formValues)
     setItem([...item, response.data])
     setFormValues(initialState)
@@ -40,6 +41,7 @@ const ItemForm = ({ item, setItem }) => {
           onChange={handleChange}
           value={formValues.name}
         />
+        <br></br>
         <label htmlFor="price">Price: </label>
         <input
           type="text"
@@ -47,6 +49,7 @@ const ItemForm = ({ item, setItem }) => {
           onChange={handleChange}
           value={formValues.price}
         />
+        <br></br>
 
         <label htmlFor="quantity">Quantity: </label>
         <input
@@ -55,6 +58,7 @@ const ItemForm = ({ item, setItem }) => {
           onChange={handleChange}
           value={formValues.quantity}
         />
+        <br></br>
 
         <label htmlFor="description">Description: </label>
         <input
@@ -63,6 +67,7 @@ const ItemForm = ({ item, setItem }) => {
           onChange={handleChange}
           value={formValues.description}
         />
+        <br></br>
 
         <label htmlFor="expireDate">Expire Date: </label>
         <input
@@ -71,6 +76,7 @@ const ItemForm = ({ item, setItem }) => {
           onChange={handleChange}
           value={formValues.expireDate}
         />
+        <br></br>
 
         <label htmlFor="category">Category: </label>
         <input
@@ -79,6 +85,8 @@ const ItemForm = ({ item, setItem }) => {
           onChange={handleChange}
           value={formValues.category}
         />
+        <br></br>
+
         <label htmlFor="image">Image:</label>
         <input
           type="text"
@@ -86,7 +94,9 @@ const ItemForm = ({ item, setItem }) => {
           onChange={handleChange}
           value={formValues.image}
         />
-        <button type="submit">Add</button>
+        <br></br>
+
+        <button type="submit">Add Item</button>
       </form>
     </div>
   )
