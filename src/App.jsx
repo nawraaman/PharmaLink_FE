@@ -1,21 +1,25 @@
 import { Route, Routes } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
+import { BASE_URL } from './globals'
+import axios from 'axios'
 import NavBar from './components/NavBar'
 import Home from './pages/Home'
+import ApprovalRequests from './pages/ApprovalRequests'
 import Signin from './pages/auth/Signin'
 import Signup from './pages/auth/Signup'
 import { useEffect, useState } from 'react'
-import { getProfile } from './services/userService'
+import { getProfile, getRequests } from './services/userService'
 import PharmacyDetails from './pages/Pharmacy/PharmacyDetails'
 import AddPharmacy from './pages/Pharmacy/AddPharmacy'
 import UpdatePharmacy from './pages/Pharmacy/UpdatePharmacy'
 import DeletePharmacy from './pages/Pharmacy/DeletePharmacy'
-import ItemList from './pages/item/ItemList'
-import DeleteConfirm from './pages/item/DeleteConfirm'
-import ItemForm from './pages/item/ItemForm'
+import AddItem from './pages/Item/AddItem'
+import client from './services/config'
 import UpdateItem from './pages/item/UpdateItem'
+import DeleteConfirm from './pages/item/DeleteConfirm'
 import ItemDetails from './pages/item/ItemDetails'
-import ApprovalRequests from './pages/ApprovalRequests'
+import ItemList from './pages/item/ItemList'
 
 const App = () => {
   const [items, setItems] = useState([])
@@ -43,14 +47,16 @@ const App = () => {
   const [pharmacies, setPharmacies] = useState([])
 
   useEffect(() => {
-    const getAllItems = async () => {
-      const response = await axios.get(`${BASE_URL}` / items)
-      setItems(response.data)
+    const getAllPharmacies = async () => {
+      const response = await axios.get(`${BASE_URL}/pharmacy`)
+      setPharmacies(response.data)
+      console.log(response.data)
     }
-
-    getUserProfile()
-    getAllItems()
+    getAllPharmacies()
   }, [])
+
+  //Items
+  // const [items, setItems] = useState([])
 
   return (
     <>
@@ -85,21 +91,8 @@ const App = () => {
                 setPharmacies={setPharmacies}
               />
             }
-
-            //incoming
-            //   path="/new"
-            //   element={
-            //     <AddPharmacy pharmacy={pharmacy} setPharmacy={setPharmacy} />
-            //   }
-            // />
-            // <Route
-            //   path="/pharmacy/update/:pharmacyId"
-            //   element={<UpdatePharmacy setPharmacy={setPharmacy} />}
-            // />
-            // <Route
-            //   path="/pharmacy/delete/:pharmacyId"
-            //   element={<DeletePharmacy setPharmacy={setPharmacy} />}
           />
+
           <Route
             path="/pharmacy/update/:pharmacyId"
             element={
@@ -109,6 +102,7 @@ const App = () => {
               />
             }
           />
+
           <Route
             path="/pharmacy/delete/:pharmacyId"
             element={
@@ -118,18 +112,19 @@ const App = () => {
               />
             }
           />
+
           <Route
-            path="/newItem"
-            element={<ItemForm items={items} setItems={setItems} />}
+            path="/item/new/:pharmacyId"
+            element={<AddItem items={items} setItems={setItems} />}
           />
           <Route path="/item" element={<ItemList items={items} />} />
           <Route path="/item/:ItemId" element={<ItemDetails items={items} />} />
           <Route
-            path="/update/:ItemId"
+            path="/item/update/:ItemId"
             element={<UpdateItem item={items} setItems={setItems} />}
           />
           <Route
-            path="/delete/:itemId"
+            path="/item/delete/:itemId"
             element={<DeleteConfirm items={items} setItems={setItems} />}
           />
         </Routes>

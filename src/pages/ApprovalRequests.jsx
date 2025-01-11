@@ -18,7 +18,11 @@ const ApprovalRequests = () => {
 
   return (
     <div>
-      <h1>Approval Requests</h1>
+      <br />
+      <div class="container">
+        <h1 class="text-center">Approval Requests</h1>
+      </div>
+
       {requests.length > 0 ? (
         <div className="container w-95">
           <div className="table-responsive">

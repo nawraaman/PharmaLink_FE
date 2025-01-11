@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-// import { BASE_URL } from '../globals'
+import client from '../../services/config'
 
 const DeletePharmacy = ({ pharmacies, setPharmacies }) => {
   let navigate = useNavigate()
