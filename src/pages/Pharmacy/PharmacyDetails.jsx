@@ -88,16 +88,6 @@ const PharmacyDetails = ({ user }) => {
                       Delete
                     </button>
                   )}
-                  {user && user.role === 'Vendor' && (
-                    <button
-                      className="btn btn-primary px-4"
-                      onClick={() =>
-                        navigate(`/pharmacy/update/${pharmacy._id}`)
-                      }
-                    >
-                      Update
-                    </button>
-                  )}
                 </div>
               </div>
             </div>
