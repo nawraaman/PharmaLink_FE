@@ -9,10 +9,9 @@ const ApprovalRequests = () => {
 
   useEffect(() => {
     const getAllRequests = async () => {
-      // const response = await axios.get(`${BASE_URL}/user/approvalrequests`)
       const response = await client.get('/user/approvalrequests')
       setRequests(response.data)
-      console.log(requests)
+      console.log(response.data)
     }
     getAllRequests()
   }, [])

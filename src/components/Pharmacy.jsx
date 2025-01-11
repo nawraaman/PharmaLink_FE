@@ -22,6 +22,9 @@ const Pharmacy = ({ pharmacy }) => {
           <p className="card-text">
             <b>Number of Branches:</b> {pharmacy.noBranches}
           </p>
+          {/* <p className="card-text">
+            <b>ID:</b> {pharmacy._id}
+          </p> */}
           <hr />
           <Link
             to={`/pharmacy/${pharmacy._id}`}

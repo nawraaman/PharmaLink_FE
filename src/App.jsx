@@ -9,12 +9,17 @@ import ApprovalRequests from './pages/ApprovalRequests'
 import Signin from './pages/auth/Signin'
 import Signup from './pages/auth/Signup'
 import { useEffect, useState } from 'react'
-import { getProfile } from './services/userService'
+import { getProfile, getRequests } from './services/userService'
+import PharmacyDetails from './pages/Pharmacy/PharmacyDetails'
+import AddPharmacy from './pages/Pharmacy/AddPharmacy'
+import UpdatePharmacy from './pages/Pharmacy/UpdatePharmacy'
+import DeletePharmacy from './pages/Pharmacy/DeletePharmacy'
 import client from './services/config'
-// import { getAllRequests } from './services/userService'
 
 const App = () => {
   const [user, setUser] = useState(null)
+
+  const [pharmacy, setPharmacy] = useState([])
 
   const getUserProfile = async () => {
     try {
@@ -26,14 +31,11 @@ const App = () => {
       console.log(error)
     }
   }
+
   const logOut = () => {
     localStorage.removeItem('authToken')
     setUser(null)
   }
-
-  // useEffect(() => {
-  //   getUserProfile()
-  // }, [])
 
   // Pharmacies
   const [pharmacies, setPharmacies] = useState([])
@@ -42,6 +44,7 @@ const App = () => {
     const getAllPharmacies = async () => {
       const response = await axios.get(`${BASE_URL}/pharmacy`)
       setPharmacies(response.data)
+      console.log(response.data)
     }
     getAllPharmacies()
   }, [])
@@ -57,16 +60,48 @@ const App = () => {
             path="/auth/signup"
             element={<Signup getUserProfile={getUserProfile} />}
           />
-
           <Route
             path="/auth/signin"
             element={<Signin getUserProfile={getUserProfile} />}
           />
+
           <Route
             path="/"
             element={<Home user={user} pharmacies={pharmacies} />}
           />
           <Route path="/admin/requests" element={<ApprovalRequests />} />
+
+          <Route
+            path="/pharmacy/:pharmacyId"
+            element={<PharmacyDetails setPharmacy={setPharmacy} user={user} />}
+          />
+          <Route
+            path="/pharmacy/new"
+            element={
+              <AddPharmacy
+                pharmacies={pharmacies}
+                setPharmacies={setPharmacies}
+              />
+            }
+          />
+          <Route
+            path="/pharmacy/update/:pharmacyId"
+            element={
+              <UpdatePharmacy
+                pharmacies={pharmacies}
+                setPharmacies={setPharmacies}
+              />
+            }
+          />
+          <Route
+            path="/pharmacy/delete/:pharmacyId"
+            element={
+              <DeletePharmacy
+                pharmacies={pharmacies}
+                setPharmacies={setPharmacies}
+              />
+            }
+          />
         </Routes>
       </main>
     </>
