@@ -57,7 +57,9 @@ const App = () => {
           />
           <Route
             path="/new"
-            element={<AddPharmacy setPharmacy={setPharmacy} />}
+            element={
+              <AddPharmacy pharmacy={pharmacy} setPharmacy={setPharmacy} />
+            }
           />
           <Route
             path="/pharmacy/update/:pharmacyId"
@@ -65,12 +67,7 @@ const App = () => {
           />
           <Route
             path="/pharmacy/delete/:pharmacyId"
-            element={
-              <DeletePharmacy
-                pharmacies={pharmacies}
-                setPharmacies={setPharmacies}
-              />
-            }
+            element={<DeletePharmacy setPharmacy={setPharmacy} />}
           />
         </Routes>
       </main>
