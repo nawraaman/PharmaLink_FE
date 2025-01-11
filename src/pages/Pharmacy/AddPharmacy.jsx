@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL } from '../../globals'
 
+import { BASE_URL } from '../../globals'
+import { addPharmacy } from '../../services/pharmService'
 const AddPharmacy = ({ pharmacy, setPharmacy }) => {
   const initialState = {
     name: '',
@@ -16,8 +16,17 @@ const AddPharmacy = ({ pharmacy, setPharmacy }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const response = await axios.post(`${BASE_URL}/pharmacy`, formPharm)
-      setPharmacy([...pharmacy, response.data])
+      const formData = new FormData()
+      formData.append('name', formPharm.name)
+      formData.append('location', formPharm.location)
+      formData.append('noBranches', formPharm.noBranches)
+      formData.append('logo', formPharm.logo)
+      // console.log(formData.entries())
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value)
+      }
+      const response = await addPharmacy(formData)
+      setPharmacy([...pharmacy, response])
       setFormPharm(initialState)
       navigate('/')
     } catch (error) {
@@ -28,7 +37,9 @@ const AddPharmacy = ({ pharmacy, setPharmacy }) => {
   const handleChange = (event) => {
     setFormPharm({ ...formPharm, [event.target.id]: event.target.value })
   }
-
+  const handleLogoChange = (event) => {
+    setFormPharm({ ...formPharm, logo: event.target.files[0] })
+  }
   return (
     <div>
       <h1>New Pharmacy</h1>
@@ -58,7 +69,14 @@ const AddPharmacy = ({ pharmacy, setPharmacy }) => {
           required
         />
         <label htmlFor="logo">Upload Logo:</label>
-        <input type="file" name="logo" id="logo" accept="image/*" required />
+        <input
+          type="file"
+          name="logo"
+          id="logo"
+          onChange={handleLogoChange}
+          accept="image/*"
+          required
+        />
 
         <button type="submit">Create Pharmacy</button>
       </form>
