@@ -1,11 +1,16 @@
 import Item from '../../components/Item'
+
 const ItemList = ({ items }) => {
   return (
-    <div>
-      <h1>Item List</h1>
-      <section className="item-list">
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">Item List</h1>
+      <section className="row">
         {items?.map((item) => (
-          <Item item={item} key={item._id} />
+          <div className="col-md-4 mb-4" key={item._id}>
+            <div className="card shadow p-3 bg-light rounded">
+              <Item item={item} />
+            </div>
+          </div>
         ))}
       </section>
     </div>

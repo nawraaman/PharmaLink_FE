@@ -14,24 +14,34 @@ const ItemDetails = ({ items }) => {
       setItem(singleItem)
     }
     getItem()
-  }, [])
+  }, [id, items])
 
   return (
-    <div>
+    <div className="container mt-5">
       {item ? (
-        <>
-          <h1>Item Details</h1>
-          <section className="Item-details">
-            <h2>{item.name}</h2>
-            <h3>{item.price} BD </h3>
-            <h3>{item.quantity}</h3>
-            <h3>{item.expireDate}</h3>
-            <h3>{item.category}</h3>
-            {pet.image ? <img src={pet.image} alt={pet.name} /> : null}
+        <div
+          className="shadow p-4 bg-light rounded mx-auto"
+          style={{ maxWidth: '600px' }}
+        >
+          <h1 className="text-center mb-4">Item Details</h1>
+          <section className="item-details text-center">
+            <h2 className="mb-3">{item.name}</h2>
+            <h3 className="mb-3">Price: {item.price} BD</h3>
+            <h3 className="mb-3">Quantity: {item.quantity}</h3>
+            <h3 className="mb-3">Expire Date: {item.expireDate}</h3>
+            <h3 className="mb-3">Category: {item.category}</h3>
+            {item.image ? (
+              <img
+                src={item.image}
+                alt={item.name}
+                className="img-fluid rounded"
+                style={{ maxHeight: '300px', objectFit: 'cover' }}
+              />
+            ) : null}
           </section>
-        </>
+        </div>
       ) : (
-        <h1>Loading ... </h1>
+        <h1 className="text-center mt-5">Loading...</h1>
       )}
     </div>
   )
