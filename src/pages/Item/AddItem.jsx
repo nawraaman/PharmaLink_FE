@@ -1,4 +1,6 @@
 import { useState } from 'react'
+
+
 import { useNavigate, useParams } from 'react-router-dom'
 import client from '../../services/config'
 import { addItemF } from '../../services/itemService'
@@ -11,11 +13,13 @@ const AddItem = ({ items, setItems }) => {
     name: '',
     price: '',
     quantity: '',
+
     expireDate: '',
     description: '',
     category: '',
     image: null
   }
+
   const [formItem, setFormItem] = useState(initialState)
   const navigate = useNavigate()
 
@@ -23,14 +27,19 @@ const AddItem = ({ items, setItems }) => {
     event.preventDefault()
     try {
       const formData = new FormData()
+
+
       console.log('Entered handle submit')
       formData.append('name', formItem.name)
       formData.append('price', formItem.price)
       formData.append('quantity', formItem.quantity)
+
       formData.append('expireDate', formItem.expireDate)
       formData.append('description', formItem.description)
       formData.append('category', formItem.category)
       formData.append('image', formItem.image)
+
+
       formData.append('pharmacyId', pharmacyId)
       // formData.append('pharmacyId', pharmacyId)
       console.log('Before addItemF')
@@ -40,17 +49,20 @@ const AddItem = ({ items, setItems }) => {
       setItems([...items, response.data])
       setFormItem(initialState)
       navigate('/')
+
     } catch (error) {
       console.error('Error adding item:', error)
     }
   }
 
   const handleChange = (event) => {
+
     const { id, value } = event.target
     setFormItem({ ...formItem, [id]: value })
   }
 
   const handleFileChange = (event) => {
+
     setFormItem({ ...formItem, image: event.target.files[0] })
   }
 
@@ -102,8 +114,11 @@ const AddItem = ({ items, setItems }) => {
           />
         </div>
         <div className="mb-3">
+
+
           <label htmlFor="expireDate" className="form-label">
             Expiration Date
+
           </label>
           <input
             type="date"
@@ -121,7 +136,10 @@ const AddItem = ({ items, setItems }) => {
           <textarea
             id="description"
             className="form-control"
+
+
             rows="3"
+
             onChange={handleChange}
             value={formItem.description}
           />
@@ -147,8 +165,10 @@ const AddItem = ({ items, setItems }) => {
             type="file"
             id="image"
             className="form-control"
+
             onChange={handleFileChange}
             accept="image/*"
+
           />
         </div>
         <button
@@ -156,7 +176,10 @@ const AddItem = ({ items, setItems }) => {
           style={{ backgroundColor: '#800000', color: 'white' }}
           className="btn w-100"
         >
+
+
           Add Item
+
         </button>
       </form>
     </div>

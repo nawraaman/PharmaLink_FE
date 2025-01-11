@@ -34,6 +34,7 @@ const PharmacyDetails = ({ user }) => {
   }, [])
 
   return (
+
     <div>
       <div
         className="container d-flex justify-content-center align-items-center"
@@ -76,6 +77,7 @@ const PharmacyDetails = ({ user }) => {
                   />
                 )}
               </div>
+
 
               {/* Right Content Section */}
               <div className="col-md-7">
