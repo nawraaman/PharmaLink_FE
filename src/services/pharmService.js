@@ -7,3 +7,7 @@ export const addPharmacy = async (data) => {
 
   return response.data
 }
+export const getPharmacyById = async (pharmacyId) => {
+  const response = await client.get(`/pharmacy/${pharmacyId}`)
+  return response.data
+}

@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import axios from 'axios'
-import { BASE_URL } from '../../globals'
+import { getPharmacyById } from '../../services/pharmService'
 
 const PharmacyDetails = () => {
   const navigate = useNavigate()
@@ -11,8 +10,8 @@ const PharmacyDetails = () => {
   useEffect(() => {
     const fetchPharmacy = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/pharmacy/${pharmacyId}`)
-        setPharmacy(response.data)
+        const data = await getPharmacyById(pharmacyId)
+        setPharmacy(data)
       } catch (error) {
         console.error('Error fetching pharmacy details:', error)
       }
