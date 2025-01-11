@@ -69,6 +69,19 @@ const App = () => {
             path="/pharmacy/delete/:pharmacyId"
             element={<DeletePharmacy setPharmacy={setPharmacy} />}
           />
+          <Route
+            path="/pharmacy/update/:pharmacyId"
+            element={<UpdatePharmacy setPharmacy={setPharmacy} />}
+          />
+          <Route
+            path="/pharmacy/delete/:pharmacyId"
+            element={
+              <DeletePharmacy
+                pharmacies={pharmacies}
+                setPharmacies={setPharmacies}
+              />
+            }
+          />
         </Routes>
       </main>
     </>
