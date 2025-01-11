@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL } from 'globals'
-
+import client from '../../services/config'
 const ItemForm = ({ item, setItem }) => {
   let navigate = useNavigate()
   let initialState = {
