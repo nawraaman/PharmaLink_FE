@@ -82,7 +82,11 @@ const UpdatePharmacy = ({ pharmacies, setPharmacies }) => {
             value={formPharmacy.noBranches}
           />
         </div>
-        <button type="submit" className="btn btn-primary w-100">
+        <button
+          type="submit"
+          style={{ backgroundColor: '#800000', color: 'white' }}
+          className="btn w-100"
+        >
           Update Pharmacy
         </button>
       </form>
