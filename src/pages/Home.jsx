@@ -27,8 +27,9 @@ const Home = ({ user, pharmacies }) => {
 
   return (
     <div>
-      <h1>Home Page</h1>
-
+      <h1></h1>
+      <br />
+      <br />
       {/* Admin */}
       {user && user.role === 'Admin' && (
         <div className="d-flex justify-content-end mt-3 me-5">

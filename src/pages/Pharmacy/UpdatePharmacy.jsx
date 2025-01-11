@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import client from '../../services/config'
+import AddNewItemButton from '../../components/AddNewItemButton'
 
 const UpdatePharmacy = ({ pharmacies, setPharmacies }) => {
   let navigate = useNavigate()
@@ -41,6 +42,9 @@ const UpdatePharmacy = ({ pharmacies, setPharmacies }) => {
       <h1 className="text-center mb-4">
         Update Details for {formPharmacy.name}
       </h1>
+      <div className="text-center mb-4">
+        <AddNewItemButton pharmacyID={pharmacyId} />
+      </div>
       <form
         onSubmit={handleSubmit}
         className="shadow p-4 bg-light rounded mx-auto"

@@ -1,17 +1,23 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { addItem } from '../../services/itemService'
 
+
+import { useNavigate, useParams } from 'react-router-dom'
+import client from '../../services/config'
+import { addItemF } from '../../services/itemService'
+
+// const AddItem = ({ items, setItems, pharmacyId }) => {
 const AddItem = ({ items, setItems }) => {
+  const { pharmacyId } = useParams()
+
   const initialState = {
     name: '',
     price: '',
     quantity: '',
-    pharmacyId: '',
+
     expireDate: '',
     description: '',
     category: '',
-    image: ''
+    image: null
   }
 
   const [formItem, setFormItem] = useState(initialState)
@@ -21,29 +27,42 @@ const AddItem = ({ items, setItems }) => {
     event.preventDefault()
     try {
       const formData = new FormData()
+
+
+      console.log('Entered handle submit')
       formData.append('name', formItem.name)
       formData.append('price', formItem.price)
       formData.append('quantity', formItem.quantity)
-      formData.append('pharmacyId', formItem.pharmacyId)
+
       formData.append('expireDate', formItem.expireDate)
       formData.append('description', formItem.description)
       formData.append('category', formItem.category)
       formData.append('image', formItem.image)
 
-      const response = await addItem(formData)
-      setItems([...items, response])
+
+      formData.append('pharmacyId', pharmacyId)
+      // formData.append('pharmacyId', pharmacyId)
+      console.log('Before addItemF')
+      const response = await addItemF(formData, pharmacyId)
+      console.log('After addItemF')
+      // const response = await client.post(`/item/${pharmacyId}`, formData)
+      setItems([...items, response.data])
       setFormItem(initialState)
-      navigate('/items')
+      navigate('/')
+
     } catch (error) {
       console.error('Error adding item:', error)
     }
   }
 
   const handleChange = (event) => {
-    setFormItem({ ...formItem, [event.target.id]: event.target.value })
+
+    const { id, value } = event.target
+    setFormItem({ ...formItem, [id]: value })
   }
 
-  const handleImageChange = (event) => {
+  const handleFileChange = (event) => {
+
     setFormItem({ ...formItem, image: event.target.files[0] })
   }
 
@@ -95,21 +114,11 @@ const AddItem = ({ items, setItems }) => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="pharmacyId" className="form-label">
-            Pharmacy ID
-          </label>
-          <input
-            type="text"
-            id="pharmacyId"
-            className="form-control"
-            onChange={handleChange}
-            value={formItem.pharmacyId}
-            required
-          />
-        </div>
-        <div className="mb-3">
+
+
           <label htmlFor="expireDate" className="form-label">
-            Expiry Date
+            Expiration Date
+
           </label>
           <input
             type="date"
@@ -127,6 +136,10 @@ const AddItem = ({ items, setItems }) => {
           <textarea
             id="description"
             className="form-control"
+
+
+            rows="3"
+
             onChange={handleChange}
             value={formItem.description}
           />
@@ -152,9 +165,10 @@ const AddItem = ({ items, setItems }) => {
             type="file"
             id="image"
             className="form-control"
-            onChange={handleImageChange}
+
+            onChange={handleFileChange}
             accept="image/*"
-            required
+
           />
         </div>
         <button
@@ -162,7 +176,10 @@ const AddItem = ({ items, setItems }) => {
           style={{ backgroundColor: '#800000', color: 'white' }}
           className="btn w-100"
         >
-          Create Item
+
+
+          Add Item
+
         </button>
       </form>
     </div>
