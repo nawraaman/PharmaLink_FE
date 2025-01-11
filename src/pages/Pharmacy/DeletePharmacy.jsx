@@ -1,7 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import client from '../../services/config'
-import { BASE_URL } from '../../globals'
 
 const DeletePharmacy = ({ pharmacies, setPharmacies }) => {
   let navigate = useNavigate()
@@ -9,13 +7,11 @@ const DeletePharmacy = ({ pharmacies, setPharmacies }) => {
 
   const deletePharmacy = async () => {
     try {
-      // await axios.delete(`${BASE_URL}/pharmacy/${pharmacyId}`)
       const response = await client.delete(`pharmacy/${pharmacyId}`)
       const index = pharmacies.findIndex(
         (pharmacy) => pharmacy._id === pharmacyId
       )
       setPharmacies(pharmacies.toSpliced(index, 1))
-      // navigate('/pharmacy-list')
       navigate('/')
     } catch (error) {
       console.error('Error deleting pharmacy:', error)
@@ -23,10 +19,23 @@ const DeletePharmacy = ({ pharmacies, setPharmacies }) => {
   }
 
   return (
-    <div>
-      <h1>Are you sure you want to delete this pharmacy?</h1>
-      <button onClick={() => navigate(`/pharmacy/${pharmacyId}`)}>No</button>
-      <button onClick={deletePharmacy}>Yes</button>
+    <div className="container text-center mt-5">
+      <h1 className="mb-4 text-danger">Confirm Deletion</h1>
+      <p className="mb-4">
+        Are you sure you want to delete this pharmacy? This action cannot be
+        undone.
+      </p>
+      <div className="d-flex justify-content-center gap-3">
+        <button
+          className="btn btn-secondary"
+          onClick={() => navigate(`/pharmacy/${pharmacyId}`)}
+        >
+          No, Cancel
+        </button>
+        <button className="btn btn-danger" onClick={deletePharmacy}>
+          Yes, Delete
+        </button>
+      </div>
     </div>
   )
 }

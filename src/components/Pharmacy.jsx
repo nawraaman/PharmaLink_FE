@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-
 const Pharmacy = ({ pharmacy }) => {
+  // const src = `../../../PharmaLink_BE/public/uploads/logos/${pharmacy.logo}`
   return (
     <div className="col-md-4 mb-4">
       <div className="card" style={{ width: '18rem' }}>

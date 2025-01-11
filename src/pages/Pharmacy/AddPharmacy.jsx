@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL } from '../../globals'
 import client from '../../services/config'
+import { BASE_URL } from '../../globals'
+import { addPharmacy } from '../../services/pharmService'
 
 const AddPharmacy = ({ pharmacies, setPharmacies }) => {
   const initialState = {
@@ -17,9 +17,15 @@ const AddPharmacy = ({ pharmacies, setPharmacies }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      // const response = await axios.post(`${BASE_URL}/pharmacy`, formPharm)
-      const response = await client.post('/pharmacy', formPharm)
-      setPharmacies([...pharmacies, response.data])
+      const formData = new FormData()
+      formData.append('name', formPharm.name)
+      formData.append('location', formPharm.location)
+      formData.append('noBranches', formPharm.noBranches)
+      formData.append('logo', formPharm.logo)
+
+      const response = await addPharmacy(formData)
+      // const response = await client.post('/pharmacy', formData)
+      setPharmacies([...pharmacies, response])
       setFormPharm(initialState)
       navigate('/')
     } catch (error) {
@@ -31,12 +37,16 @@ const AddPharmacy = ({ pharmacies, setPharmacies }) => {
     setFormPharm({ ...formPharm, [event.target.id]: event.target.value })
   }
 
+  const handleLogoChange = (event) => {
+    setFormPharm({ ...formPharm, logo: event.target.files[0] })
+  }
+
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">New Pharmacy</h1>
       <form
         onSubmit={handleSubmit}
-        className="shadow p-4 rounded bg-light mx-auto"
+        className="shadow p-4 bg-light rounded mx-auto"
         style={{ maxWidth: '500px' }}
       >
         <div className="mb-3">
@@ -84,14 +94,18 @@ const AddPharmacy = ({ pharmacies, setPharmacies }) => {
           </label>
           <input
             type="file"
-            name="logo"
             id="logo"
             className="form-control"
+            onChange={handleLogoChange}
             accept="image/*"
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary w-100">
+        <button
+          type="submit"
+          style={{ backgroundColor: '#800000', color: 'white' }}
+          className="btn  w-100"
+        >
           Create Pharmacy
         </button>
       </form>
