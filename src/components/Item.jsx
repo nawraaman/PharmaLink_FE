@@ -38,14 +38,14 @@ const Item = ({ item }) => {
           <p className="card-text">
             <b>Price:</b> BD{item.price.toFixed(2)}
           </p>
-          <div className="d-flex justify-content-between">
+          {/* <div className="d-flex justify-content-between">
             <Link to={`/itemDetails/${item._id}`} className="btn btn-primary">
               View Details
             </Link>
             <button className="btn btn-danger" onClick={handleDeleteNavigation}>
               Delete
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

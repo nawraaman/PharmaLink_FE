@@ -4,8 +4,6 @@ import AddPharmacyButton from '../components/AddPharmacyButton'
 import ManagePharmacyButton from '../components/ManagePharmacyButton'
 import { useEffect, useState } from 'react'
 import client from '../services/config'
-import { BASE_URL } from '../globals'
-import axios from 'axios'
 
 const Home = ({ user, pharmacies }) => {
   const [pharmacyCount, setPharmacyCount] = useState()
@@ -49,7 +47,7 @@ const Home = ({ user, pharmacies }) => {
         </div>
       )}
 
-      {/* Vendor - approved - with no pharmacy*/}
+      {/* Vendor - Approved - No pharmacy */}
       {user &&
         user.role === 'Vendor' &&
         user.Approved === true &&
@@ -59,7 +57,7 @@ const Home = ({ user, pharmacies }) => {
           </div>
         )}
 
-      {/* Vendor - approved - with no pharmacy*/}
+      {/* Vendor - Approved - Has pharmacy */}
       {user &&
         user.role === 'Vendor' &&
         user.Approved === true &&
@@ -70,8 +68,8 @@ const Home = ({ user, pharmacies }) => {
         )}
 
       {/* Display all pharmacies */}
-      <section className="container my-5 d-flex justify-content-center">
-        <div className="row row-cols-1 row-cols-md-3 g-5">
+      <section className="container my-5">
+        <div className="row row-cols-1 row-cols-md-3 g-4">
           {pharmacies?.map((pharmacy) => (
             <Pharmacy pharmacy={pharmacy} key={pharmacy._id} />
           ))}
