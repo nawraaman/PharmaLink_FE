@@ -1,4 +1,4 @@
-[PharmaLink Logo]()
+![Home](image.png)
 
 ## Project 3: PharmaLink
 
