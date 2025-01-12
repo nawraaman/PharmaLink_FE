@@ -8,9 +8,7 @@ const ItemDetails = ({ items }) => {
 
   useEffect(() => {
     const getItem = () => {
-      const singleItem = items.find((item) => {
-        return item._id === id
-      })
+      const singleItem = items.find((item) => item._id === id)
       setItem(singleItem)
     }
     getItem()
