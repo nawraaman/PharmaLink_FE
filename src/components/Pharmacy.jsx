@@ -2,10 +2,9 @@ import { Link } from 'react-router-dom'
 import { BASE_URL } from '../globals'
 
 const Pharmacy = ({ pharmacy }) => {
-  // const src = `../../../PharmaLink_BE/public/uploads/logos/${pharmacy.logo}`
   return (
-    <div className="col-md-4 mb-4">
-      <div className="card" style={{ width: '18rem' }}>
+    <div className="col">
+      <div className="card h-100" style={{ width: '18rem' }}>
         <img
           src={`${BASE_URL}${pharmacy.logo}`}
           alt={pharmacy.name}
@@ -15,7 +14,7 @@ const Pharmacy = ({ pharmacy }) => {
             objectFit: 'contain'
           }}
         />
-        <div className="card-body">
+        <div className="card-body d-flex flex-column">
           <h5 className="card-title">{pharmacy.name}</h5>
           <hr />
           <p className="card-text">
@@ -24,13 +23,10 @@ const Pharmacy = ({ pharmacy }) => {
           <p className="card-text">
             <b>Number of Branches:</b> {pharmacy.noBranches}
           </p>
-          {/* <p className="card-text">
-            <b>ID:</b> {pharmacy._id}
-          </p> */}
           <hr />
           <Link
             to={`/pharmacy/${pharmacy._id}`}
-            className="btn"
+            className="btn mt-auto"
             style={{ backgroundColor: '#800000', color: '#fff' }}
           >
             View Pharmacy
