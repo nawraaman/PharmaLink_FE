@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { BASE_URL } from './globals'
 import axios from 'axios'
-import NavBar from './components/NavBar'
+import Nav from './components/NavBar'
 import Home from './pages/Home'
 import ApprovalRequests from './pages/ApprovalRequests'
 import Signin from './pages/auth/Signin'
@@ -16,13 +16,8 @@ import UpdatePharmacy from './pages/Pharmacy/UpdatePharmacy'
 import DeletePharmacy from './pages/Pharmacy/DeletePharmacy'
 import AddItem from './pages/Item/AddItem'
 import client from './services/config'
-import UpdateItem from './pages/item/UpdateItem'
-import DeleteConfirm from './pages/item/DeleteConfirm'
-import ItemDetails from './pages/item/ItemDetails'
-import ItemList from './pages/item/ItemList'
 
 const App = () => {
-  const [items, setItems] = useState([])
   const [user, setUser] = useState(null)
 
   const [pharmacy, setPharmacy] = useState([])
@@ -56,12 +51,13 @@ const App = () => {
   }, [])
 
   //Items
-  // const [items, setItems] = useState([])
+  const [items, setItems] = useState([])
 
   return (
     <>
-      <NavBar />
-      <header>{/* <Nav logOut={logOut} user={user} /> */}</header>
+      <header>
+        <Nav logOut={logOut} user={user} />
+      </header>
       <main>
         <Routes>
           <Route
@@ -107,8 +103,8 @@ const App = () => {
             path="/pharmacy/delete/:pharmacyId"
             element={
               <DeletePharmacy
-                pharmacies={pharmacy}
-                setPharmacies={setPharmacy}
+                pharmacies={pharmacies}
+                setPharmacies={setPharmacies}
               />
             }
           />
@@ -117,19 +113,10 @@ const App = () => {
             path="/item/new/:pharmacyId"
             element={<AddItem items={items} setItems={setItems} />}
           />
-          <Route path="/item" element={<ItemList items={items} />} />
-          <Route path="/item/:ItemId" element={<ItemDetails items={items} />} />
-          <Route
-            path="/item/update/:ItemId"
-            element={<UpdateItem item={items} setItems={setItems} />}
-          />
-          <Route
-            path="/item/delete/:itemId"
-            element={<DeleteConfirm items={items} setItems={setItems} />}
-          />
         </Routes>
       </main>
     </>
   )
 }
+
 export default App

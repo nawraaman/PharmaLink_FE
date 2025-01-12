@@ -8,9 +8,14 @@ const DeleteConfirm = ({ items, setItems }) => {
 
   const deleteItem = async () => {
     try {
+      // API call to delete the item from the backend
       await axios.delete(`${BASE_URL}/item/${id}`)
-      let index = items.findIndex((item) => item._id === id)
-      setItems(items.toSpliced(index, 1))
+
+      // Remove the item from the frontend list
+      const updatedItems = items.filter((item) => item._id !== id)
+      setItems(updatedItems) // Update state with the new item list
+
+      // Navigate back to item lists
       navigate('/itemList')
     } catch (error) {
       console.error('Error deleting item:', error)

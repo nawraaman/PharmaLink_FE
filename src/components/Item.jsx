@@ -1,7 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BASE_URL } from '../globals'
 
 const Item = ({ item }) => {
+  const navigate = useNavigate()
+
+  const handleDeleteNavigation = () => {
+    navigate(`/item/delete/${item._id}`)
+  }
+
   return (
     <div className="col-md-4 mb-4">
       <div className="card" style={{ width: '18rem' }}>
@@ -30,8 +36,16 @@ const Item = ({ item }) => {
             <b>Quantity:</b> {item.quantity}
           </p>
           <p className="card-text">
-            <b>Price:</b> ${item.price.toFixed(2)}
+            <b>Price:</b> BD{item.price.toFixed(2)}
           </p>
+          <div className="d-flex justify-content-between">
+            <Link to={`/itemDetails/${item._id}`} className="btn btn-primary">
+              View Details
+            </Link>
+            <button className="btn btn-danger" onClick={handleDeleteNavigation}>
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>
